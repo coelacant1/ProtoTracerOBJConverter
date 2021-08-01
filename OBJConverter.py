@@ -1,8 +1,8 @@
 
 
-fileName = "Example Files\DVD.obj"
-outputCPPName = "Output\DVD.h"
-name = "DVD"
+fileName = "Example Files\Cube.obj"
+outputCPPName = "Output\Cube.h"
+name = "Cube"
 
 class Vector3D:
     X = 0.0
@@ -87,9 +87,9 @@ def ReadIndexes(data):
 
             t = Triangle()
 
-            t.A = int(spaces[1])
-            t.B = int(spaces[2])
-            t.C = int(spaces[3])
+            t.A = int(spaces[1]) - 1
+            t.B = int(spaces[2]) - 1
+            t.C = int(spaces[3]) - 1
 
             indexes.append(t)
     
