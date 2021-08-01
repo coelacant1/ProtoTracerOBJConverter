@@ -1,8 +1,8 @@
 
 
-fileName = "Example Files\Cube.obj"
-outputCPPName = "Output\Cube.h"
-name = "Cube"
+fileName = "Example Files\DragonStatue.obj"
+outputCPPName = "Output\DragonStatue.h"
+name = "DragonStatue"
 
 class Vector3D:
     X = 0.0
