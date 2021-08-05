@@ -1,8 +1,8 @@
 
 
-fileName = "Example Files\Charmander.obj"
-outputCPPName = "Output\Charmander.h"
-name = "Charmander"
+fileName = "Example Files\Background.obj"
+outputCPPName = "Output\Background.h"
+name = "Background"
 
 class Vector3D:
     X = 0.0
@@ -18,7 +18,7 @@ def GetHeader():
     return "#pragma once\n\n#include \"Vector3D.h\"\n"
 
 def GetHeader():
-    return "#pragma once\n\n#include \"..\Render\Object3D.h\"\n#include \"..\Materials\SimpleMaterial.h\"\n\nclass " + name + "{\nprivate:\n"
+    return "#pragma once\n\n#include \"..\Render\Object3D.h\"\n#include \"..\Materials\RGBColor.h\"\n\nclass " + name + "{\nprivate:\n"
 
 def GetVertices(vertices):
     basisVertices = "\tVector3D basisVertices[" + str(int(len(vertices))) + "] = {"
@@ -44,7 +44,7 @@ def GetIndexes(triangles):
 
 def GetObject(vertices, triangles):
     lines =  "\tTriangleGroup triangleGroup = TriangleGroup(&basisVertices[0], &basisIndexes[0], " + str(int(len(vertices))) + ", " + str(len(triangles)) + ");\n"
-    lines += "\tSimpleMaterial simpleMaterial = SimpleMaterial(RGBColor(128, 128, 128));\n"
+    lines += "\tRGBColor simpleMaterial = RGBColor(128, 128, 128);\n"
     return lines + "\tObject3D basisObj = Object3D(&triangleGroup, &simpleMaterial);\n\n"
 
 def GetFooter():
