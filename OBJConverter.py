@@ -1,8 +1,8 @@
 
 
-fileName = "Example Files\Charmander.obj"
-outputCPPName = "Output\Charmander.h"
-name = "Charmander"
+fileName = "Example Files\SolidCube.obj"
+outputCPPName = "Output\SolidCube.h"
+name = "SolidCube"
 
 class Vector3D:
     X = 0.0
@@ -13,9 +13,6 @@ class Triangle:
     A = 0
     B = 1
     C = 2
-
-def GetHeader():
-    return "#pragma once\n\n#include \"Vector3D.h\"\n"
 
 def GetHeader():
     return "#pragma once\n\n#include \"..\Render\Object3D.h\"\n#include \"..\Materials\SimpleMaterial.h\"\n\nclass " + name + "{\nprivate:\n"
