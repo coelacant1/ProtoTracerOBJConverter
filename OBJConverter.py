@@ -1,9 +1,9 @@
 from PIL import Image
 
-fileName = "Example Files\Artisans\ArtisansSmall.obj"
-textureName = "Example Files\Artisans\Artisans.png"
-outputCPPName = "Output\Artisans.h"
-name = "Artisans"
+fileName = "Example Files\Bee\Bee.obj"
+textureName = "Example Files\Bee\Bee.png"
+outputCPPName = "Output\Bee.h"
+name = "Bee"
 
 class Vector3D:
     X = 0.0
@@ -143,7 +143,6 @@ def ReadUVVertices(data):
     
     return vectors
 
-    
 def ReadUVIndexes(data):
     lines = data.splitlines()
     indexes = []
