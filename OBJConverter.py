@@ -1,9 +1,10 @@
 from PIL import Image
 
-fileName = "Example Files\Bee\Bee.obj"
-textureName = "Example Files\Bee\Bee.png"
-outputCPPName = "Output\Bee.h"
-name = "Bee"
+fileName = "Example Files\Rocks\Rocks.obj"
+textureName = "Example Files\Rocks\Rocks.png"
+outputCPPName = "Output\Rocks.h"
+name = "Rocks"
+numColors = 16 
 
 class Vector3D:
     X = 0.0
@@ -164,16 +165,20 @@ def ReadUVIndexes(data):
     return indexes
 
 def GetTexture(className, file):
-    image = Image.open(file).convert('RGB')
+    image = Image.open(file).convert("P", palette = Image.ADAPTIVE, colors = numColors)
     w, h = image.size
+    
+    image.seek(0)
+    pal = image.getpalette()
 
     data = "#pragma once\n\n"
     data += "#include \"..\Materials\\UVMap.h\"\n\n"
     data += "class " + className + "Tex : public UVMap{\n"
     data += "private:\n"
-    data += "\tstatic const uint8_t rgbMemory[];\n\n"
+    data += "\tstatic const uint8_t rgbMemory[];\n"
+    data += "\tstatic const uint8_t rgbColors[];\n\n"
     data += "public:\n"
-    data += "\t" + className + "Tex(Vector2D size, Vector2D offset) : UVMap(Image::RGB, rgbMemory, " + str(w) + ", " + str(h) +") {\n"
+    data += "\t" + className + "Tex(Vector2D size, Vector2D offset) : UVMap(rgbMemory, rgbColors, " + str(w) + ", " + str(h) + ", " + str(int(len(pal) / 3) - 1) + ") {\n"
     data += "\t\tSetSize(size);\n"
     data += "\t\tSetPosition(offset);\n"
     data += "\t}\n};\n\n"
@@ -182,14 +187,28 @@ def GetTexture(className, file):
     
     for i in range(h):
         for j in range(w):
-            r, g, b = image.getpixel((j, i))
+            index = image.getpixel((j, i))
 
-            data += str(r) + "," + str(g) + "," + str(b)
+            data += str(index)
             
             if i == h - 1 and j == w - 1:
-                data += "};\n"
+                data += "};\n\n"
             else:
                 data += ","
+
+    data += "const uint8_t " + className + "Tex::rgbColors[] PROGMEM = {"
+
+    for i in range(numColors):
+        r = pal[i * 3]
+        g = pal[i * 3 + 1]
+        b = pal[i * 3 + 2]
+
+        data += str(r) + "," + str(g) + "," + str(b)
+        
+        if i == numColors - 1:
+            data += "};\n"
+        else:
+            data += ","
 
     return data
 
